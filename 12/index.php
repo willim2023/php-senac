@@ -45,24 +45,46 @@ abstract class Personagem {
 }
 
 class Guerreiro extends Personagem {
+    private $poderEscudo;
+    private $ataqueEspada;
+
+    public function __construct($nome, $pontosVida, $poderAtaque, $poderEscudo)
+    {
+        parent::__construct($nome, $pontosVida, $poderAtaque);
+        $this->poderEscudo = $poderEscudo;
+        $this->ataqueEspada = 5;
+    }
+
     public function atacar($inimgo)
     {
-        
+        $dano = $this->poderAtaque + $this->ataqueEspada;
+        $inimgo->sofrerDano($dano);
     }
 }
 
 class Mago extends Personagem {
+    private $pontosMagia;
+
+    public function __construct($nome, $pontosVida, $poderAtaque, $pontosMagia)
+    {
+        parent::__construct($nome, $pontosVida, $poderAtaque);
+        $this->pontosMagia = $pontosMagia;
+    }
+
     public function atacar($inimgo)
     {
-        
+        if($this->pontosMagia > 5) {
+            $inimgo->sofrerDano($this->poderAtaque);
+            $this->pontosMagia -= 5;
+        }
     }
 }
 
 // Não é possível instanciar um objeto a partir de uma classe abstrata
 //$personagem1 = new Personagem();
 
-$guerreiro = new Guerreiro("Aragorn", 100, 20);
-$mago = new Mago("Gandalf", 80, 30);
+$guerreiro = new Guerreiro("Aragorn", 100, 20, 10);
+$mago = new Mago("Gandalf", 80, 30, 100);
 
 echo "Dados do Guerreiro: <br>";
 $guerreiro->exibirDados();
@@ -70,4 +92,11 @@ $guerreiro->exibirDados();
 echo "Dados do Mago: <br>";
 $mago->exibirDados();
 
+echo "Guerreiro atacou o Mago: <br>";
+$guerreiro->atacar($mago);
+$mago->exibirDados();
+
+echo "Mago atacou o Guerreiro: <br>";
+$mago->atacar($guerreiro);
+$guerreiro->exibirDados();
 ?>
