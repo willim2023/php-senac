@@ -25,10 +25,13 @@ if($result->num_rows>0) {
         echo "ID: " . $row["id"] . "<br>";
         echo "Nome: " . $row["nome"] . "<br>";
         echo "Email: " . $row["email"] . "<br>";
+        echo "Telefone " . $row["telefone"] . "<br>";
         echo "<hr>";
     }
 } else {
     echo "Nenhum registro encontrado";
 }
 
+// Fechando a conexão com o banco de dados!
+$connection->close();
 ?>
