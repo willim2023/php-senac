@@ -1,5 +1,6 @@
 <?php
 
+// https://github.com/aeciobrito/php-senac/blob/main/14/Script.sql
 class DatabaseRepository
 {
     private static $server = 'localhost';
@@ -27,12 +28,43 @@ class DatabaseRepository
         return $contatos;
     }
 
+    public static function getContactById($id) {
+        $connection = self::connect();
+        $result = $connection->query("SELECT * FROM contatos_info WHERE id = $id");
+
+        $contact = null;
+        if($result->num_rows > 0) {
+            $contact = $result->fetch_assoc();
+        }
+        $connection->close();
+        return $contact;
+    }
+
+    public static function insertContact($nome, $telefone, $email) {
+        $connection = self::connect();
+        $sql = "INSERT INTO contatos_info (nome, telefone, email) VALUES ('$nome', '$telefone', '$email')";
+        $success = $connection->query($sql);
+        $connection->close();
+        return $success;
+    }
+
+    public static function updateContact($id, $nome, $telefone, $email) {
+        $connection = self::connect();
+        $sql = "UPDATE contatos_info SET nome='$nome', telefone='$telefone', email='$email' WHERE id=$id";
+        $success = $connection->query($sql);
+        $connection->close();
+        return $success;
+    }
+
+    public static function deleteContact($id) {
+        $connection = self::connect();
+        $success = $connection->query("DELETE FROM contatos_info WHERE id=$id");
+        $connection->close();
+        return $success;
+    }
+
     public static function getServerValues()
     {
         return  self::$server . " - " . self::$username;
     }
 }
-
-
-
-?>
