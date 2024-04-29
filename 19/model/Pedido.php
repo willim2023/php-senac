@@ -10,12 +10,12 @@ class Pedido implements JsonSerializable {
         $this->status = $status;
     }
 
-    public function jsonSerialize():array {
-       return [
-        'id' => $this->id,
-        'data_pedido' => $this->data_pedido,
-        'status' => $this->status
-       ]; 
+    public function jsonSerialize(): array {
+        return [
+            'id' => $this->id,
+            'data_pedido' => $this->data_pedido,
+            'status' => $this->status
+        ];
     }
 }
 ?>

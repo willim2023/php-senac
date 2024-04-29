@@ -1,16 +1,16 @@
 <?php
 require_once 'database/PedidoRepository.php';
+
 class PedidoController {
     public static function handleRequest($action) {
         switch($action) {
             case 'listar':
-                
                 self::listarPedidos();
-               break;
+                break;
             default:
-               http_response_code(400); // Requisição inválida
-               echo json_encode(['error' => 'Ação inválida']);
-               break;
+                http_response_code(400); // Requisição inválida
+                echo json_encode(['error' => 'Ação inválida']);
+                break;
         }
     }
 
