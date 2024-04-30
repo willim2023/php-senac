@@ -14,7 +14,8 @@ class PedidoController {
                 self::cadastrarPedido();
                 break;
             case 'atualizar':
-                self::atualizarPedido();   
+                self::atualizarPedido();
+                break;
             default:
                 http_response_code(400); // Requisição inválida
                 echo json_encode(['error' => 'Ação inválida']);
@@ -67,11 +68,11 @@ class PedidoController {
             // Existindo um pedido!
             $pedidoExistente = PedidoRepository::getPedidoById($id);
             if($pedidoExistente) {
-                // update das propriedades do pedido
+                //update das propriedades do pedido
                 $pedidoExistente->setStatus($status);
-                $pedidoExistente->setData($data);
+                $pedidoExistente->setData($data_pedido);
 
-                $success = PedidoRepository::updatePedido($pedidoExistente);
+                $success = PedidoRepository::updatePedido($pedidoExistente, $id);
                 echo json_encode(['success' => $success]);
             } else {
                 http_response_code(404);
@@ -80,7 +81,7 @@ class PedidoController {
         } else {
             http_response_code(405);
         }
+        
     }
 }
-    
 ?>
