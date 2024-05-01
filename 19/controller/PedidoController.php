@@ -16,6 +16,9 @@ class PedidoController {
             case 'atualizar':
                 self::atualizarPedido();
                 break;
+            case 'excluir':
+                self::excluirPedido();
+                break;
             default:
                 http_response_code(400); // Requisição inválida
                 echo json_encode(['error' => 'Ação inválida']);
@@ -80,7 +83,7 @@ class PedidoController {
             }
         } else {
             http_response_code(405);
-        }
+        }        
     }
 
     public static function excluirPedido() {
@@ -91,8 +94,7 @@ class PedidoController {
             echo json_encode(['success' => $success]);
         } else {
             http_response_code(405);
-        }
+        }       
     }
-
 }
 ?>
