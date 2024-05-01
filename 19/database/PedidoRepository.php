@@ -54,8 +54,12 @@ class PedidoRepository {
         return $success;
     }
 
-    public static function deletePedido() {
-
+    public static function deletePedido($id) {
+        $connection = DatabaseRepository::connect();
+        $sql = "SELECT FROM pedido WHERE id = $id";
+        $success = $connection->query($sql);
+        $connection->close();
+        return $success;
     }
 }
 ?>

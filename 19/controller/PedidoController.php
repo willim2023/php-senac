@@ -81,7 +81,18 @@ class PedidoController {
         } else {
             http_response_code(405);
         }
-        
     }
+
+    public static function excluirPedido() {
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = json_decode(file_get_contents("php://input"));
+            $id = $data->id;
+            $success = PedidoRepository::deletePedido($id);
+            echo json_encode(['success' => $success]);
+        } else {
+            http_response_code(405);
+        }
+    }
+
 }
 ?>
